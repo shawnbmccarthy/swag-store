@@ -1,0 +1,19 @@
+.footer {
+    background-color: #4D5760;
+    position: relative;
+    z-index: 1;
+}
+
+.footerContent {
+    color: #CCCCCC;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.footerMain {
+    overflow: hidden;
+    height: 97px;
+    width: 1400px;
+    padding: 10px 0 0 0;
+    margin: 0 auto;
+}
