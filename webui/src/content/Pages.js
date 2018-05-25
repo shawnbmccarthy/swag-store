@@ -2,8 +2,11 @@ import React from 'react';
 
 export const Home = () => (
     <div className='Home'>
-        <div className='img'>
-            <img src='/images/swag.jpg' alt=''/></div>
+        <div className={'row'}>
+            <div className='img'>
+                <img className="img-fluid" src='/images/swag.jpg' alt=''/>
+            </div>
+        </div>
     </div>
 );
 
