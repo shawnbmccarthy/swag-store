@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {google, facebook, stitch} from './config';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {HashRouter} from 'react-router-dom';
 import {StitchClientFactory} from "mongodb-stitch";
 
-const appId = 'swag-kopai';
+// const appId = 'swag-kopai';
+const appId = stitch.appId;
+
+console.log("Configuration: ");
+console.log("Stitch: " + stitch.appId);
+console.log("Google: " + google.clientID);
+console.log("Facebook: " + facebook.clientID);
+
 const mdbService = 'mongodb-atlas';
 
 let stitchClientPromise = StitchClientFactory.create(appId);
