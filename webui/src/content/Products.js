@@ -1,63 +1,27 @@
-import React, {Component} from 'react';
-
-
-// TODO: Swap out hardcoded image, name, desc, and price and add "Add to cart" handler;
-export class SingleProduct extends Component {
-  render() {
-    const {name, price, shortDescription} = this.props;
-    return (
-      <div className={'card'}>
-        <img className={'card-img-top'} src='/images/products/kids/large.jpg' alt={''}/>
-        <div className={'card-body'}>
-          <h5 className={'card-title'}>Swag 1</h5>
-          <p className={'card-text'}>
-            <small>This is a longer card with supporting text below as a natural lead-in to additional
-              content.
-            </small>
-          </p>
-        </div>
-        <div className="card-footer">
-          <p className={'card-text'}>
-            <small className={'text-muted'}>$3.99</small>
-            <button type="button" className="float-right btn btn-outline-primary btn-sm"><i
-              className={'fa fa-plus'}/> Add to cart
-            </button>
-          </p>
-        </div>
-      </div>
-    )
-  }
-}
-
-export class ProductDeck extends Component {
-  render() {
-    const {children} = this.props;
-    return (
-      <div className={'card-deck w-75'}>
-        {children}
-      </div>
-    )
-  }
-}
-
+import React, { Component } from 'react'
+import { ProductDeck } from '../components/Products'
 
 export class ProductsPage extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = props;
+    this.state = props
 
-    this.getProducts = this.getProducts.bind(this);
+    this.getProducts = this.getProducts.bind(this)
   }
 
   getProducts() {
     /*
      * TODO: need to fix this!
      */
-    this.state.products.find({category: this.state.category}).execute().then(docs => {
-      let html = docs.map(d => '<div>' + d.name + '</div>').join('');
-      console.log(html);
-    });
+    this.state.products
+      .find({ category: this.props.category })
+      .execute()
+      .then(docs => {
+        console.log(docs)
+        //let html = docs.map(d => '<div>' + d.name + '</div>').join('')
+        //console.log(html)
+      })
   }
 
   /*
@@ -66,22 +30,16 @@ export class ProductsPage extends Component {
    *       - All rows should be pushed by expanding menu
    */
   render() {
-    this.getProducts();
+    //this.getProducts()
     return (
-      <div>
-        <div className=''>
-          <div className='row'>
-            <h2>{this.state.category}</h2>
-          </div>
-          <div className='row'>
-            <ProductDeck>
-              <SingleProduct/>
-              <SingleProduct/>
-              <SingleProduct/>
-            </ProductDeck>
-          </div>
+      <div className="">
+        <div className="row">
+          <h2>{this.props.category}</h2>
+        </div>
+        <div className="row">
+          <ProductDeck />
         </div>
       </div>
-    );
+    )
   }
 }
