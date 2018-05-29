@@ -61,12 +61,13 @@ export class NavItem extends Component {
   }
 }
 
+// TODO: Make item count in cart dynamic -- badge-notify class;
 export class NavItemIcon extends Component {
   render() {
     const {link, title, icon} = this.props;
     return (
       <NavLink className='link nav-link base nav-item' activeStyle={{fontWeight: 'bold'}} to={link}>
-        <i className={icon}></i>{title}
+        <i className={icon}></i> {title} <span className="badge badge-notify">3</span>
       </NavLink>
     );
   }

@@ -134,3 +134,10 @@ a:active {
     overflow:hidden;
     color:#fff;
 }
+
+.badge-notify{
+    background: #13aa52;
+    position:relative;
+    top: -15px;
+    left: -7px;
+}
