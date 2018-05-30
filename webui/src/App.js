@@ -11,7 +11,7 @@ import {
   NavBarToggler
 } from './components/Navigation'
 import { Switch, Route } from 'react-router-dom'
-import { Cart, Home, Register, Login } from './content/Pages'
+import { Cart, Home, Login } from './content/Pages'
 import ProductsPage from './content/Products'
 import ProductPage from './content/Product'
 // TODO: Cleanup footer import Footer from './components/Footer';
@@ -56,7 +56,11 @@ class App extends Component {
     this.state = {
       cart: []
     }
+
+    this.handleAddToCart = this.handleAddToCart.bind(this)
   }
+
+  handleAddToCart(productId) {}
 
   render(props) {
     return (
@@ -66,7 +70,6 @@ class App extends Component {
           <NavBarToggler />
           <NavBarNav>
             <NavItem link="/" title="Home" />
-            <NavItem link="/register" title="Register" />
             <NavItem link="/login" title="Login" />
             <NavBarSearch />
             <NavItemIcon link="/cart" title="cart" icon="fa fa-shopping-cart" />
@@ -80,8 +83,10 @@ class App extends Component {
         <div className="main">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
+            <Route
+              path="/login"
+              render={routeProps => <Login {...this.props} {...routeProps} />}
+            />
             <Route path="/cart" component={Cart} />
             <Route
               exact

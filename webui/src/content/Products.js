@@ -38,6 +38,10 @@ class ProductsPage extends Component {
    *       - All rows should be pushed by expanding menu
    */
   render() {
+    console.log(
+      'is auth? ',
+      this.props.stitchClient.auth.getLoggedInProviderType()
+    )
     return (
       <div className="productsPage">
         <div className="row">
