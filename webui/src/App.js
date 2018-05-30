@@ -16,10 +16,45 @@ import { ProductsPage } from './content/Products'
 // TODO: Cleanup footer import Footer from './components/Footer';
 import './App.css'
 
+const menuItems = [
+  {
+    link: '/products/category/apparel',
+    title: 'apparel',
+    icon: 'fas fa-tshirt'
+  },
+  {
+    link: '/products/category/bags',
+    title: 'bags',
+    icon: 'fas fa-shopping-bag'
+  },
+  {
+    link: '/products/category/kids',
+    title: 'kids',
+    icon: 'fas fa-child'
+  },
+  {
+    link: '/products/category/travel',
+    title: 'travel',
+    icon: 'fas fa-globe'
+  },
+  {
+    link: '/products/category/accessories',
+    title: 'accessories',
+    icon: 'fa fa-suitcase'
+  },
+  {
+    link: '/products/category/vintage',
+    title: 'vintage',
+    icon: 'fab fa-shirtsinbulk'
+  }
+]
+
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = props
+    this.state = {
+      cart: []
+    }
   }
 
   render(props) {
@@ -37,36 +72,9 @@ class App extends Component {
           </NavBarNav>
         </NavbarTop>
         <NavBarSide>
-          <NavBarSideItem
-            link="/products/category/apparel"
-            title="apparel"
-            icon="fas fa-tshirt"
-          />
-          <NavBarSideItem
-            link="/products/category/bags"
-            title="bags"
-            icon="fas fa-shopping-bag"
-          />
-          <NavBarSideItem
-            link="/products/category/kids"
-            title="kids"
-            icon="fas fa-child"
-          />
-          <NavBarSideItem
-            link="/products/category/travel"
-            title="travel"
-            icon="fas fa-globe"
-          />
-          <NavBarSideItem
-            link="/products/category/accessories"
-            title="accessories"
-            icon="fa fa-suitcase"
-          />
-          <NavBarSideItem
-            link="/products/category/vintage"
-            title="vintage"
-            icon="fab fa-shirtsinbulk"
-          />
+          {menuItems.map(item => {
+            return <NavBarSideItem key={item.title} {...item} />
+          })}
         </NavBarSide>
         <div className="main">
           <Switch>
@@ -79,7 +87,7 @@ class App extends Component {
               render={routeProps => (
                 <ProductsPage
                   category={routeProps.match.params.category}
-                  {...this.state}
+                  {...this.props}
                 />
               )}
             />

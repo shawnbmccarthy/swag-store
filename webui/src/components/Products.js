@@ -1,35 +1,42 @@
 import React from 'react'
 
+const testProduct = {
+  image: {
+    large: '/images/products/kids/large.jpg',
+    thumb: '/images/products/kids/thumb.jpg'
+  },
+  name: 'Swag 1',
+  overview:
+    'This is a longer card with supporting text below as a natural lead-in to additional content.',
+  price: '3.99'
+}
+
 const ProductDeck = ({ products }) => {
   return (
     <div className={'card-deck w-75'}>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      {products.map(product => {
+        return <ProductCard key={product.id} {...product} />
+      })}
+      <ProductCard {...testProduct} />
+      <ProductCard {...testProduct} />
+      <ProductCard {...testProduct} />
     </div>
   )
 }
 
-const ProductCard = ({ name, price, shortDescription }) => {
+const ProductCard = props => {
   return (
     <div className={'card'}>
-      <img
-        className={'card-img-top'}
-        src="/images/products/kids/large.jpg"
-        alt={''}
-      />
+      <img className={'card-img-top'} src={props.image.large} alt={''} />
       <div className={'card-body'}>
-        <h5 className={'card-title'}>Swag 1</h5>
+        <h5 className={'card-title'}>{props.name}</h5>
         <p className={'card-text'}>
-          <small>
-            This is a longer card with supporting text below as a natural
-            lead-in to additional content.
-          </small>
+          <small>{props.overview}</small>
         </p>
       </div>
       <div className="card-footer">
         <p className={'card-text'}>
-          <small className={'text-muted'}>$3.99</small>
+          <small className={'text-muted'}>${props.price}</small>
           <button
             type="button"
             className="float-right btn btn-outline-primary btn-sm"
