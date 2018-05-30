@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ProductDeck } from '../components/Products'
 
-export class ProductsPage extends Component {
+class ProductsPage extends Component {
   constructor(props) {
     super(props)
 
@@ -23,13 +23,11 @@ export class ProductsPage extends Component {
   }
 
   componentDidMount() {
-    console.log('products page componentDidMount')
     this.getProducts()
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.category !== prevProps.category) {
-      console.log('products page componentDidUpdate')
       this.getProducts()
     }
   }
@@ -40,9 +38,8 @@ export class ProductsPage extends Component {
    *       - All rows should be pushed by expanding menu
    */
   render() {
-    console.log('Rendering Product Page')
     return (
-      <div className="productPage">
+      <div className="productsPage">
         <div className="row">
           <h2>{this.props.category}</h2>
         </div>
@@ -53,3 +50,5 @@ export class ProductsPage extends Component {
     )
   }
 }
+
+export default ProductsPage

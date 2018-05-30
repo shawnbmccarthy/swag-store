@@ -12,7 +12,8 @@ import {
 } from './components/Navigation'
 import { Switch, Route } from 'react-router-dom'
 import { Cart, Home, Register, Login } from './content/Pages'
-import { ProductsPage } from './content/Products'
+import ProductsPage from './content/Products'
+import ProductPage from './content/Product'
 // TODO: Cleanup footer import Footer from './components/Footer';
 import './App.css'
 
@@ -83,12 +84,20 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/cart" component={Cart} />
             <Route
+              exact
               path="/products/category/:category"
               render={routeProps => (
                 <ProductsPage
                   category={routeProps.match.params.category}
                   {...this.props}
                 />
+              )}
+            />
+            <Route
+              exact
+              path="/products/:id"
+              render={routeProps => (
+                <ProductPage id={routeProps.match.params.id} {...this.props} />
               )}
             />
           </Switch>
