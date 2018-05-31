@@ -3,7 +3,6 @@ import {
   NavbarTop,
   NavBarBrand,
   NavBarNav,
-  NavBarSearch,
   NavItem,
   NavItemIcon,
   NavBarSide,
@@ -55,15 +54,35 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cart: []
+      userInfo: {
+        authData: {},
+        cart: {
+          products: []
+        }
+      }
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
   }
 
-  handleAddToCart(productId) {}
+  componentDidMount() {
+    if (this.props.stitchClient.isAuthenticated()) {
+      this.props.stitchClient.executeFunction('getUserInfo').then(userInfo => {
+        this.setState({ userInfo })
+      })
+    }
+  }
+
+  handleAddToCart(productId) {
+    this.props.stitchClient
+      .executeFunction('addToCart', productId)
+      .then(cart => {
+        this.setState({ cart })
+      })
+  }
 
   render(props) {
+    const isAuthenticated = this.props.stitchClient.isAuthenticated()
     return (
       <div>
         <NavbarTop>
@@ -71,7 +90,7 @@ class App extends Component {
           <NavBarToggler />
           <NavBarNav>
             <NavItem link="/" title="Home" />
-            {this.props.stitchClient.isAuthenticated() ? (
+            {isAuthenticated ? (
               <a
                 className="link nav-link base nav-item"
                 href="javascript:void(0)"
@@ -81,12 +100,11 @@ class App extends Component {
                     .then(() => window.location.reload())
                 }
               >
-                Logout
+                Hello, {this.state.userInfo.authData.first_name} Logout
               </a>
             ) : (
               <NavItem link="/login" title="Login" />
             )}
-            <NavBarSearch />
             <NavItemIcon link="/cart" title="cart" icon="fa fa-shopping-cart" />
           </NavBarNav>
         </NavbarTop>
