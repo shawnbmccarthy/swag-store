@@ -5,7 +5,7 @@ const ProtectedRoute = ({ component: Component, stitchClient, ...rest }) => (
   <Route
     {...rest}
     render={routeProps =>
-      stitchClient.auth.getLoggedInProviderType() !== 'anon' ? (
+      stitchClient.isAuthenticated() ? (
         <Component stitchClient={stitchClient} {...routeProps} />
       ) : (
         <Redirect

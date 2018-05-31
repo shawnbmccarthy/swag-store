@@ -10,14 +10,12 @@ const appId = 'ecommercechatbot-glwkl'
 let stitchClientPromise = StitchClientFactory.create(appId)
 
 stitchClientPromise.then(stitchClient => {
-  stitchClient.authenticate('anon').then(anonId => {
-    let props = { stitchClient, anonId }
-    ReactDOM.render(
-      <BrowserRouter>
-        <App {...props} />
-      </BrowserRouter>,
-      document.getElementById('root')
-    )
-    registerServiceWorker()
-  })
+  let props = { stitchClient }
+  ReactDOM.render(
+    <BrowserRouter>
+      <App {...props} />
+    </BrowserRouter>,
+    document.getElementById('root')
+  )
+  registerServiceWorker()
 })

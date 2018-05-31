@@ -11,7 +11,7 @@ class ProductPage extends Component {
 
   getProduct() {
     this.props.stitchClient
-      .executeFunction('getProduct', this.props.id)
+      .executeFunction('getProduct', this.props.match.params.id)
       .then(product => {
         console.log(product)
         this.setState({ product })
@@ -26,7 +26,7 @@ class ProductPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.id !== prevProps.id) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
       this.getProduct()
     }
   }

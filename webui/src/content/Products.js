@@ -12,7 +12,7 @@ class ProductsPage extends Component {
 
   getProducts() {
     this.props.stitchClient
-      .executeFunction('getProducts', this.props.category)
+      .executeFunction('getProducts', this.props.match.params.category)
       .then(products => {
         console.log(products)
         this.setState({ products })
@@ -27,7 +27,7 @@ class ProductsPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.category !== prevProps.category) {
+    if (this.props.match.params.category !== prevProps.match.params.category) {
       this.getProducts()
     }
   }
@@ -42,10 +42,11 @@ class ProductsPage extends Component {
       'is auth? ',
       this.props.stitchClient.auth.getLoggedInProviderType()
     )
+    console.log(this.props.match.params.category)
     return (
       <div className="productsPage">
         <div className="row">
-          <h2>{this.props.category}</h2>
+          <h2>{this.props.match.params.category}</h2>
         </div>
         <div className="row">
           <ProductDeck products={this.state.products} />

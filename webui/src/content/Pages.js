@@ -18,7 +18,7 @@ export class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.stitchClient.auth.getLoggedInProviderType() !== 'anon') {
+    if (this.props.stitchClient.isAuthenticated()) {
       this.setState({ redirectToReferrer: true })
     }
   }
@@ -26,10 +26,6 @@ export class Login extends Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
-
-    console.log('from ', from)
-    console.log(this.props.stitchClient.auth.getLoggedInProviderType())
-    console.log(this.props.anonId)
 
     if (redirectToReferrer) {
       return <Redirect to={from} />
@@ -39,7 +35,7 @@ export class Login extends Component {
       <div className="Login">
         <h2>Login</h2>
         <div
-          onClick={() => this.props.stitchClient.linkWithProvider('google')}
+          onClick={() => this.props.stitchClient.authenticate('google')}
           className="signin-button"
         >
           <svg

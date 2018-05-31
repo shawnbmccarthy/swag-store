@@ -11,6 +11,7 @@ import {
   NavBarToggler
 } from './components/Navigation'
 import { Switch, Route } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
 import { Cart, Home, Login } from './content/Pages'
 import ProductsPage from './content/Products'
 import ProductPage from './content/Product'
@@ -70,7 +71,21 @@ class App extends Component {
           <NavBarToggler />
           <NavBarNav>
             <NavItem link="/" title="Home" />
-            <NavItem link="/login" title="Login" />
+            {this.props.stitchClient.isAuthenticated() ? (
+              <a
+                className="link nav-link base nav-item"
+                href="javascript:void(0)"
+                onClick={() =>
+                  this.props.stitchClient
+                    .logout()
+                    .then(() => window.location.reload())
+                }
+              >
+                Logout
+              </a>
+            ) : (
+              <NavItem link="/login" title="Login" />
+            )}
             <NavBarSearch />
             <NavItemIcon link="/cart" title="cart" icon="fa fa-shopping-cart" />
           </NavBarNav>
@@ -88,22 +103,17 @@ class App extends Component {
               render={routeProps => <Login {...this.props} {...routeProps} />}
             />
             <Route path="/cart" component={Cart} />
-            <Route
+            <ProtectedRoute
               exact
               path="/products/category/:category"
-              render={routeProps => (
-                <ProductsPage
-                  category={routeProps.match.params.category}
-                  {...this.props}
-                />
-              )}
+              component={ProductsPage}
+              {...this.props}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/products/:id"
-              render={routeProps => (
-                <ProductPage id={routeProps.match.params.id} {...this.props} />
-              )}
+              component={ProductPage}
+              {...this.props}
             />
           </Switch>
         </div>
