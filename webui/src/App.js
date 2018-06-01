@@ -89,9 +89,10 @@ class App extends Component {
           <NavBarBrand href="/" src="/images/logo.png" />
           <NavBarToggler />
           <NavBarNav>
-            <NavItem link="/" title="Home" />
-            {isAuthenticated ? (
+            {isAuthenticated && [
+              <NavItem key="home" link="/" title="Home" />,
               <a
+                key="logout"
                 className="link nav-link base nav-item"
                 href="javascript:void(0)"
                 onClick={() =>
@@ -101,26 +102,31 @@ class App extends Component {
                 }
               >
                 Hello, {this.state.userInfo.authData.first_name} Logout
-              </a>
-            ) : (
-              <NavItem link="/login" title="Login" />
-            )}
-            <NavItemIcon link="/cart" title="cart" icon="fa fa-shopping-cart" />
+              </a>,
+              <NavItemIcon
+                key="cart"
+                link="/cart"
+                title="cart"
+                icon="fa fa-shopping-cart"
+              />
+            ]}
           </NavBarNav>
         </NavbarTop>
-        <NavBarSide>
-          {menuItems.map(item => {
-            return <NavBarSideItem key={item.title} {...item} />
-          })}
-        </NavBarSide>
+        {isAuthenticated && (
+          <NavBarSide>
+            {menuItems.map(item => {
+              return <NavBarSideItem key={item.title} {...item} />
+            })}
+          </NavBarSide>
+        )}
         <div className="main">
           <Switch>
-            <Route exact path="/" component={Home} />
+            <ProtectedRoute exact path="/" component={Home} {...this.props} />
             <Route
               path="/login"
               render={routeProps => <Login {...this.props} {...routeProps} />}
             />
-            <Route path="/cart" component={Cart} />
+            <ProtectedRoute path="/cart" component={Cart} {...this.props} />
             <ProtectedRoute
               exact
               path="/products/category/:category"
