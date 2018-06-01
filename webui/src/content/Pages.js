@@ -71,9 +71,3 @@ export class Login extends Component {
     )
   }
 }
-
-export const Cart = () => (
-  <div>
-    <h2>Cart</h2>
-  </div>
-)

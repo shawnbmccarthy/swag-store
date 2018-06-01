@@ -4,14 +4,14 @@ import {
   NavBarBrand,
   NavBarNav,
   NavItem,
-  NavItemIcon,
   NavBarSide,
   NavBarSideItem,
   NavBarToggler
 } from './components/Navigation'
 import { Switch, Route } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
-import { Cart, Home, Login } from './content/Pages'
+import { Home, Login } from './content/Pages'
+import Cart from './content/Cart'
 import ProductsPage from './content/Products'
 import ProductPage from './content/Product'
 // TODO: Cleanup footer import Footer from './components/Footer';
@@ -55,10 +55,12 @@ class App extends Component {
     super(props)
     this.state = {
       userInfo: {
-        authData: {},
-        cart: {
-          products: []
-        }
+        authData: {}
+      },
+      cart: {
+        products: [],
+        totalQuantity: 0,
+        totalPrice: 0
       }
     }
 
@@ -67,8 +69,9 @@ class App extends Component {
 
   componentDidMount() {
     if (this.props.stitchClient.isAuthenticated()) {
-      this.props.stitchClient.executeFunction('getUserInfo').then(userInfo => {
-        this.setState({ userInfo })
+      this.props.stitchClient.executeFunction('getUserInfo').then(results => {
+        const { cart, ...userInfo } = results
+        this.setState({ userInfo, cart })
       })
     }
   }
@@ -76,9 +79,10 @@ class App extends Component {
   handleAddToCart(productId) {
     this.props.stitchClient
       .executeFunction('addToCart', productId)
-      .then(cart => {
-        this.setState({ cart })
+      .then(({ cart }) => {
+        this.setState({ cart: cart })
       })
+    console.log(`Add Product ${productId} to the cart.`)
   }
 
   render(props) {
@@ -103,11 +107,12 @@ class App extends Component {
               >
                 Hello, {this.state.userInfo.authData.first_name} Logout
               </a>,
-              <NavItemIcon
+              <NavItem
                 key="cart"
                 link="/cart"
                 title="cart"
                 icon="fa fa-shopping-cart"
+                badge={this.state.cart.totalQuantity}
               />
             ]}
           </NavBarNav>
@@ -126,12 +131,18 @@ class App extends Component {
               path="/login"
               render={routeProps => <Login {...this.props} {...routeProps} />}
             />
-            <ProtectedRoute path="/cart" component={Cart} {...this.props} />
+            <ProtectedRoute
+              path="/cart"
+              component={Cart}
+              {...this.props}
+              cart={this.state.cart}
+            />
             <ProtectedRoute
               exact
               path="/products/category/:category"
               component={ProductsPage}
               {...this.props}
+              handleAddToCart={this.handleAddToCart}
             />
             <ProtectedRoute
               exact

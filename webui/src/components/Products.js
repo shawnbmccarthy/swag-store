@@ -1,52 +1,56 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const testProduct = {
-  image: {
-    large: '/images/products/kids/large.jpg',
-    thumb: '/images/products/kids/thumb.jpg'
-  },
-  name: 'Swag 1',
-  overview:
-    'This is a longer card with supporting text below as a natural lead-in to additional content.',
-  price: '3.99'
-}
-
-const ProductDeck = ({ products }) => {
+const ProductDeck = ({ products, handleAddToCart }) => {
   return (
     <div className={'card-deck w-75'}>
       {products.map(product => {
-        return <ProductCard key={product.id} {...product} />
+        return (
+          <ProductCard
+            key={product.id}
+            {...product}
+            handleAddToCart={handleAddToCart}
+          />
+        )
       })}
-      <ProductCard {...testProduct} />
-      <ProductCard {...testProduct} />
-      <ProductCard {...testProduct} />
     </div>
   )
 }
 
-const ProductCard = props => {
-  return (
-    <div className={'card'}>
-      <img className={'card-img-top'} src={props.image.large} alt={''} />
-      <div className={'card-body'}>
-        <h5 className={'card-title'}>{props.name}</h5>
-        <p className={'card-text'}>
-          <small>{props.overview}</small>
-        </p>
+class ProductCard extends Component {
+  constructor(props) {
+    super(props)
+    this.handleAddToCartClick = this.handleAddToCartClick.bind(this)
+  }
+
+  handleAddToCartClick() {
+    this.props.handleAddToCart(this.props.id)
+  }
+
+  render() {
+    return (
+      <div className={'card'}>
+        <img className={'card-img-top'} src={this.props.image.large} alt={''} />
+        <div className={'card-body'}>
+          <h5 className={'card-title'}>{this.props.name}</h5>
+          <p className={'card-text'}>
+            <small>{this.props.overview}</small>
+          </p>
+        </div>
+        <div className="card-footer">
+          <p className={'card-text'}>
+            <small className={'text-muted'}>${this.props.price}</small>
+            <button
+              type="button"
+              className="float-right btn btn-outline-primary btn-sm"
+              onClick={this.handleAddToCartClick}
+            >
+              <i className={'fa fa-plus'} /> Add to cart
+            </button>
+          </p>
+        </div>
       </div>
-      <div className="card-footer">
-        <p className={'card-text'}>
-          <small className={'text-muted'}>${props.price}</small>
-          <button
-            type="button"
-            className="float-right btn btn-outline-primary btn-sm"
-          >
-            <i className={'fa fa-plus'} /> Add to cart
-          </button>
-        </p>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 export { ProductDeck, ProductCard }

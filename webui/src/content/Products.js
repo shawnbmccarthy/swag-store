@@ -14,7 +14,6 @@ class ProductsPage extends Component {
     this.props.stitchClient
       .executeFunction('getProducts', this.props.match.params.category)
       .then(products => {
-        console.log(products)
         this.setState({ products })
       })
       .catch(err => {
@@ -38,18 +37,16 @@ class ProductsPage extends Component {
    *       - All rows should be pushed by expanding menu
    */
   render() {
-    console.log(
-      'is auth? ',
-      this.props.stitchClient.auth.getLoggedInProviderType()
-    )
-    console.log(this.props.match.params.category)
     return (
       <div className="productsPage">
         <div className="row">
           <h2>{this.props.match.params.category}</h2>
         </div>
         <div className="row">
-          <ProductDeck products={this.state.products} />
+          <ProductDeck
+            products={this.state.products}
+            handleAddToCart={this.props.handleAddToCart}
+          />
         </div>
       </div>
     )

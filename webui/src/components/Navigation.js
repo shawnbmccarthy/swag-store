@@ -50,24 +50,15 @@ export const NavBarBrand = ({ href, src }) => (
   </ul>
 )
 
-export const NavItem = ({ link, title }) => (
+export const NavItem = ({ link, title, icon, badge }) => (
   <NavLink
     className="link nav-link base nav-item"
     activeStyle={{ fontWeight: 'bold' }}
     to={link}
   >
+    {icon && <i className={icon} />}
     {title}
-  </NavLink>
-)
-
-// TODO: Make item count in cart dynamic -- badge-notify class;
-export const NavItemIcon = ({ link, title, icon }) => (
-  <NavLink
-    className="link nav-link base nav-item"
-    activeStyle={{ fontWeight: 'bold' }}
-    to={link}
-  >
-    <i className={icon} /> {title} <span className="badge badge-notify">3</span>
+    {badge > 0 && <span className="badge badge-notify">{badge}</span>}
   </NavLink>
 )
 
