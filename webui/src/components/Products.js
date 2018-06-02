@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { USDFormatter } from '../helpers'
 
 const ProductDeck = ({ products, handleAddToCart }) => {
@@ -32,7 +33,9 @@ class ProductCard extends Component {
       <div className={'card'}>
         <img className={'card-img-top'} src={this.props.image.large} alt={''} />
         <div className={'card-body'}>
-          <h5 className={'card-title'}>{this.props.name}</h5>
+          <h5 className={'card-title'}>
+            <Link to={`/products/${this.props.id}`}>{this.props.name}</Link>
+          </h5>
           <p className={'card-text'}>
             <small>{this.props.overview}</small>
           </p>

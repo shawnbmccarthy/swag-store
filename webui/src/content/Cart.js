@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { USDFormatter } from '../helpers'
 
 class Cart extends Component {
@@ -52,7 +53,9 @@ const CartItem = ({ product, handleDeleteFromCart }) => (
     <div className="col col-2">
       <img src={product.image.thumb} alt={product.name} />
     </div>
-    <div className="col col-6">{product.name}</div>
+    <div className="col col-6">
+      <Link to={`/products/${product.id}`}>{product.name}</Link>
+    </div>
     <div className="col col-2">{product.quantity}</div>
     <div className="col col-1">{USDFormatter.format(product.price)}</div>
     <div className="col col-1">
