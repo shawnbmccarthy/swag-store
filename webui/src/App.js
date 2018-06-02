@@ -95,10 +95,10 @@ class App extends Component {
           <NavBarNav>
             {isAuthenticated && [
               <NavItem key="home" link="/" title="Home" />,
-              <a
-                key="logout"
-                className="link nav-link base nav-item"
-                href="javascript:void(0)"
+              <button
+                key="btn-logout"
+                type="button"
+                className="btn btn-link link nav-link base nav-item"
                 onClick={() =>
                   this.props.stitchClient
                     .logout()
@@ -106,7 +106,7 @@ class App extends Component {
                 }
               >
                 Hello, {this.state.userInfo.authData.first_name} Logout
-              </a>,
+              </button>,
               <NavItem
                 key="cart"
                 link="/cart"
