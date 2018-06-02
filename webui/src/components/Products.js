@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { USDFormatter } from '../helpers'
 
 const ProductDeck = ({ products, handleAddToCart }) => {
   return (
@@ -38,7 +39,9 @@ class ProductCard extends Component {
         </div>
         <div className="card-footer">
           <p className={'card-text'}>
-            <small className={'text-muted'}>${this.props.price}</small>
+            <small className={'text-muted'}>
+              {USDFormatter.format(this.props.price)}
+            </small>
             <button
               type="button"
               className="float-right btn btn-outline-primary btn-sm"

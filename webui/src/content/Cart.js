@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { USDFormatter } from '../helpers'
 
 class Cart extends Component {
   constructor(props) {
@@ -36,7 +37,8 @@ class Cart extends Component {
               <div className="alert alert-info">Cart is empty</div>
             )}
             <div className="cart__total">
-              <strong>Total:</strong> ${this.props.cart.totalPrice.toFixed(2)}
+              <strong>Total:</strong>{' '}
+              {USDFormatter.format(this.props.cart.totalPrice)}
             </div>
           </div>
         </div>
@@ -52,7 +54,7 @@ const CartItem = ({ product, handleDeleteFromCart }) => (
     </div>
     <div className="col col-6">{product.name}</div>
     <div className="col col-2">{product.quantity}</div>
-    <div className="col col-1">${product.price.toFixed(2)}</div>
+    <div className="col col-1">{USDFormatter.format(product.price)}</div>
     <div className="col col-1">
       <button className="btn btn-danger btn-sm">X</button>
     </div>
