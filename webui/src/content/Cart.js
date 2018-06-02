@@ -15,11 +15,17 @@ class Cart extends Component {
             {products.length > 0 && (
               <div className="container">
                 <div className="row">
-                  <div className="col" />
-                  <div className="col">Name</div>
-                  <div className="col">Quantity</div>
-                  <div className="col">Price</div>
-                  <div className="col" />
+                  <div className="col col-2" />
+                  <div className="col col-6">
+                    <strong>Name</strong>
+                  </div>
+                  <div className="col col-2">
+                    <strong>Quantity</strong>
+                  </div>
+                  <div className="col col-1">
+                    <strong>Price</strong>
+                  </div>
+                  <div className="col col-1" />
                 </div>
                 {products.map(product => (
                   <CartItem key={product.id} product={product} />
@@ -30,7 +36,7 @@ class Cart extends Component {
               <div className="alert alert-info">Cart is empty</div>
             )}
             <div className="cart__total">
-              Total: ${this.props.cart.totalPrice.toFixed(2)}
+              <strong>Total:</strong> ${this.props.cart.totalPrice.toFixed(2)}
             </div>
           </div>
         </div>
@@ -41,14 +47,14 @@ class Cart extends Component {
 
 const CartItem = ({ product, handleDeleteFromCart }) => (
   <div className="row">
-    <div className="col">
+    <div className="col col-2">
       <img src={product.image.thumb} alt={product.name} />
     </div>
-    <div className="col">{product.name}</div>
-    <div className="col">{product.quantity}</div>
-    <div className="col">${product.price.toFixed(2)}</div>
-    <div className="col">
-      <button className="btn btn-danger btn-xs">X</button>
+    <div className="col col-6">{product.name}</div>
+    <div className="col col-2">{product.quantity}</div>
+    <div className="col col-1">${product.price.toFixed(2)}</div>
+    <div className="col col-1">
+      <button className="btn btn-danger btn-sm">X</button>
     </div>
   </div>
 )

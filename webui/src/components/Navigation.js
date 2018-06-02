@@ -52,6 +52,7 @@ export const NavBarBrand = ({ href, src }) => (
 
 export const NavItem = ({ link, title, icon, badge }) => (
   <NavLink
+    exact
     className="link nav-link base nav-item"
     activeStyle={{ fontWeight: 'bold' }}
     to={link}

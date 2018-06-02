@@ -128,10 +128,12 @@ class App extends Component {
           <Switch>
             <ProtectedRoute exact path="/" component={Home} {...this.props} />
             <Route
+              exact
               path="/login"
               render={routeProps => <Login {...this.props} {...routeProps} />}
             />
             <ProtectedRoute
+              exact
               path="/cart"
               component={Cart}
               {...this.props}
