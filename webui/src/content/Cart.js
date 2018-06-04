@@ -54,7 +54,10 @@ const CartItem = ({ product, handleDeleteFromCart }) => (
       <img src={product.image.thumb} alt={product.name} />
     </div>
     <div className="col col-6">
-      <Link to={`/products/${product.id}`}>{product.name}</Link>
+      <Link to={`/products/${product.id}`}>
+        {product.name}
+        {product.size && ` (${product.size})`}{' '}
+      </Link>
     </div>
     <div className="col col-2">{product.quantity}</div>
     <div className="col col-1">{USDFormatter.format(product.price)}</div>
