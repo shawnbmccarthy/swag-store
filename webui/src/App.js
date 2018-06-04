@@ -14,6 +14,7 @@ import { Home, Login } from './content/Pages'
 import Cart from './content/Cart'
 import ProductsPage from './content/Products'
 import ProductPage from './content/Product'
+import ProfilePage from './content/Profile'
 // TODO: Cleanup footer import Footer from './components/Footer';
 import './App.css'
 
@@ -107,6 +108,7 @@ class App extends Component {
               >
                 Hello, {this.state.userInfo.authData.first_name} Logout
               </button>,
+              <NavItem key="profile" link="/profile" title="profile" />,
               <NavItem
                 key="cart"
                 link="/cart"
@@ -138,6 +140,13 @@ class App extends Component {
               component={Cart}
               {...this.props}
               cart={this.state.cart}
+            />
+            <ProtectedRoute
+              exact
+              path="/profile"
+              component={ProfilePage}
+              {...this.props}
+              userInfo={this.state.userInfo}
             />
             <ProtectedRoute
               exact
