@@ -55,9 +55,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userInfo: {
-        authData: {}
-      },
+      authData: {},
       cart: {
         products: [],
         totalQuantity: 0,
@@ -70,9 +68,8 @@ class App extends Component {
 
   componentDidMount() {
     if (this.props.stitchClient.isAuthenticated()) {
-      this.props.stitchClient.executeFunction('getUserInfo').then(results => {
-        const { cart, ...userInfo } = results
-        this.setState({ userInfo, cart })
+      this.props.stitchClient.executeFunction('getUserInfo').then(userInfo => {
+        this.setState(userInfo)
       })
     }
   }
@@ -106,7 +103,7 @@ class App extends Component {
                     .then(() => window.location.reload())
                 }
               >
-                Hello, {this.state.userInfo.authData.first_name} Logout
+                Hello, {this.state.authData.first_name} Logout
               </button>,
               <NavItem key="profile" link="/profile" title="profile" />,
               <NavItem
@@ -146,7 +143,7 @@ class App extends Component {
               path="/profile"
               component={ProfilePage}
               {...this.props}
-              userInfo={this.state.userInfo}
+              userInfo={this.state}
             />
             <ProtectedRoute
               exact
