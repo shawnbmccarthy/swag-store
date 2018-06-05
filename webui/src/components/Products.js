@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { USDFormatter } from '../helpers'
 
@@ -9,7 +9,7 @@ const ProductDeck = ({ products, handleAddToCart }) => {
         return (
           <ProductCard
             key={product.id}
-            {...product}
+            product={product}
             handleAddToCart={handleAddToCart}
           />
         )
@@ -18,45 +18,36 @@ const ProductDeck = ({ products, handleAddToCart }) => {
   )
 }
 
-class ProductCard extends Component {
-  constructor(props) {
-    super(props)
-    this.handleAddToCartClick = this.handleAddToCartClick.bind(this)
-  }
-
-  handleAddToCartClick() {
-    this.props.handleAddToCart(this.props.id)
-  }
-
-  render() {
-    return (
-      <div className={'card'}>
-        <img className={'card-img-top'} src={this.props.image.large} alt={''} />
-        <div className={'card-body'}>
-          <h5 className={'card-title'}>
-            <Link to={`/products/${this.props.id}`}>{this.props.name}</Link>
-          </h5>
-          <p className={'card-text'}>
-            <small>{this.props.overview}</small>
-          </p>
-        </div>
-        <div className="card-footer">
-          <p className={'card-text'}>
-            <small className={'text-muted'}>
-              {USDFormatter.format(this.props.price)}
-            </small>
-            <button
-              type="button"
-              className="float-right btn btn-outline-primary btn-sm"
-              onClick={this.handleAddToCartClick}
-            >
-              <i className={'fa fa-plus'} /> Add to cart
-            </button>
-          </p>
-        </div>
+const ProductCard = ({ product, handleAddToCart }) => {
+  return (
+    <div className={'card col-md-4'}>
+      <img className={'card-img-top'} src={product.image.large} alt={''} />
+      <div className={'card-body'}>
+        <h5 className={'card-title'}>
+          <Link to={`/products/${product.id}`}>{product.name}</Link>
+        </h5>
+        <p className={'card-text'}>
+          <small>{product.overview}</small>
+        </p>
       </div>
-    )
-  }
+      <div className="card-footer">
+        <p className={'card-text'}>
+          <small className={'text-muted'}>
+            {USDFormatter.format(product.price)}
+          </small>
+          <button
+            type="button"
+            className="float-right btn btn-outline-primary btn-sm"
+            onClick={() => {
+              handleAddToCart(product.id)
+            }}
+          >
+            <i className={'fa fa-plus'} /> Add to cart
+          </button>
+        </p>
+      </div>
+    </div>
+  )
 }
 
 export { ProductDeck, ProductCard }

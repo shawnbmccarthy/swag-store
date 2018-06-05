@@ -60,10 +60,13 @@ class App extends Component {
         products: [],
         totalQuantity: 0,
         totalPrice: 0
-      }
+      },
+      orders: []
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
+    this.handleUpdateCartItem = this.handleUpdateCartItem.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   componentDidMount() {
@@ -78,9 +81,27 @@ class App extends Component {
     this.props.stitchClient
       .executeFunction('addToCart', productId)
       .then(({ cart }) => {
-        this.setState({ cart: cart })
+        this.setState({ cart })
       })
-    console.log(`Add Product ${productId} to the cart.`)
+  }
+
+  handleUpdateCartItem(productId, quantity = 0) {
+    this.props.stitchClient
+      .executeFunction('updateCartItem', productId, quantity)
+      .then(({ cart }) => {
+        this.setState({ cart })
+      })
+  }
+
+  handleCheckout() {
+    this.props.stitchClient
+      .executeFunction('checkout')
+      .then(({ cart, orders }) => {
+        this.setState({ cart, orders })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   render(props) {
@@ -137,6 +158,8 @@ class App extends Component {
               component={Cart}
               {...this.props}
               cart={this.state.cart}
+              handleUpdateCartItem={this.handleUpdateCartItem}
+              handleCheckout={this.handleCheckout}
             />
             <ProtectedRoute
               exact

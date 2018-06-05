@@ -11,8 +11,10 @@ class ProductsPage extends Component {
   }
 
   getProducts() {
-    this.props.stitchClient
-      .executeFunction('getProducts', this.props.match.params.category)
+    this.props.db
+      .collection('products')
+      .find({ category: this.props.match.params.category })
+      .execute()
       .then(products => {
         this.setState({ products })
       })

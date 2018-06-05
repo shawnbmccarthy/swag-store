@@ -10,7 +10,8 @@ const appId = 'ecommercechatbot-glwkl'
 let stitchClientPromise = StitchClientFactory.create(appId)
 
 stitchClientPromise.then(stitchClient => {
-  let props = { stitchClient }
+  let db = stitchClient.service('mongodb', 'mongodb-atlas').db('swagstore')
+  let props = { stitchClient, db }
   ReactDOM.render(
     <BrowserRouter>
       <App {...props} />
