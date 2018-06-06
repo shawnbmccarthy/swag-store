@@ -61,12 +61,14 @@ class App extends Component {
         totalQuantity: 0,
         totalPrice: 0
       },
-      orders: []
+      orders: [],
+      notify: []
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
     this.handleUpdateCartItem = this.handleUpdateCartItem.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
+    this.handleProductNotification = this.handleProductNotification.bind(this)
   }
 
   componentDidMount() {
@@ -101,6 +103,14 @@ class App extends Component {
       })
       .catch(err => {
         console.log(err)
+      })
+  }
+
+  handleProductNotification(productId) {
+    this.props.stitchClient
+      .executeFunction('registerProductNotification', productId)
+      .then(({ notify }) => {
+        this.setState({ notify })
       })
   }
 
@@ -181,6 +191,8 @@ class App extends Component {
               component={ProductPage}
               {...this.props}
               handleAddToCart={this.handleAddToCart}
+              handleProductNotification={this.handleProductNotification}
+              notify={this.state.notify}
             />
           </Switch>
         </div>

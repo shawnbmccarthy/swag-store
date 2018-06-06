@@ -9,7 +9,8 @@ class ProductPage extends Component {
       product: {
         image: {}
       },
-      quantity: 1
+      quantity: 1,
+      notifying: false
     }
   }
 
@@ -18,7 +19,10 @@ class ProductPage extends Component {
       .collection('products')
       .findOne({ id: this.props.match.params.id })
       .then(product => {
-        this.setState({ product })
+        this.setState({
+          product,
+          notifying: this.props.notify.includes(this.props.match.params.id)
+        })
       })
       .catch(err => {
         console.log(err)
@@ -33,6 +37,11 @@ class ProductPage extends Component {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.getProduct()
     }
+    if (this.props.notify !== prevProps.notify) {
+      this.setState({
+        notifying: this.props.notify.includes(this.props.match.params.id)
+      })
+    }
   }
 
   render() {
@@ -46,6 +55,7 @@ class ProductPage extends Component {
       inventory,
       ...rest
     } = this.state.product
+    const isInStock = inventory > 0
     return (
       <div className="container productPage">
         <div className="row">
@@ -73,30 +83,57 @@ class ProductPage extends Component {
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">Add to Cart</h5>
-                  <form className="form-inline">
-                    <label htmlFor="txtQuantity">Quantity: </label>
-                    <input
-                      id="txtQuantity"
-                      type="number"
-                      className="form-control col-2"
-                      value={this.state.quantity}
-                      onChange={e => {
-                        this.setState({ quantity: e.target.value })
-                      }}
-                    />
-                    <button
-                      type="button"
-                      className="float-right btn btn-outline-primary btn-sm"
-                      onClick={() => {
-                        this.props.handleAddToCart(
-                          id,
-                          parseInt(this.state.quantity, 10)
-                        )
-                      }}
-                    >
-                      <i className={'fa fa-plus'} /> Add to cart
-                    </button>
-                  </form>
+                  {isInStock ? (
+                    [
+                      <p className="card-text text-success">In Stock</p>,
+                      <form className="form-inline">
+                        <label htmlFor="txtQuantity">Quantity: </label>
+                        <input
+                          id="txtQuantity"
+                          type="number"
+                          className="form-control col-2"
+                          value={this.state.quantity}
+                          onChange={e => {
+                            this.setState({ quantity: e.target.value })
+                          }}
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary btn-sm"
+                          onClick={() => {
+                            this.props.handleAddToCart(
+                              id,
+                              parseInt(this.state.quantity, 10)
+                            )
+                          }}
+                        >
+                          <i className={'fa fa-plus'} /> Add to cart
+                        </button>
+                      </form>
+                    ]
+                  ) : (
+                    <p className="card-text text-danger">Out of Stock</p>
+                  )}
+                  {!isInStock &&
+                    this.state.notifying && (
+                      <p className="card-text">
+                        We'll Notify you when it's back in stock.
+                      </p>
+                    )}
+                  {!isInStock &&
+                    !this.state.notifying && (
+                      <form className="form-inline">
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary btn-sm"
+                          onClick={() => {
+                            this.props.handleProductNotification(id)
+                          }}
+                        >
+                          Notify When in Stock
+                        </button>
+                      </form>
+                    )}
                 </div>
               </div>
             </div>
