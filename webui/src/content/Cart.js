@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { USDFormatter } from '../helpers'
 
-const Cart = ({ cart, handleUpdateCartItem, handleCheckout }) => {
+const Cart = ({ cart, handleUpdateCartItem, handleCheckout, history }) => {
   const products = cart.products
   return (
     <div className="container">
@@ -43,7 +43,10 @@ const Cart = ({ cart, handleUpdateCartItem, handleCheckout }) => {
             <div>
               <button
                 className="btn btn-primary"
-                onClick={() => handleCheckout()}
+                onClick={() => {
+                  handleCheckout()
+                  history.push('/')
+                }}
               >
                 Check Out
               </button>
