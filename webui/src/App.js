@@ -62,13 +62,15 @@ class App extends Component {
         totalPrice: 0
       },
       orders: [],
-      notify: []
+      notify: [],
+      browsed_products: []
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
     this.handleUpdateCartItem = this.handleUpdateCartItem.bind(this)
     this.handleCheckout = this.handleCheckout.bind(this)
     this.handleProductNotification = this.handleProductNotification.bind(this)
+    this.handleBrowsedProduct = this.handleBrowsedProduct.bind(this)
   }
 
   componentDidMount() {
@@ -111,6 +113,29 @@ class App extends Component {
       .executeFunction('registerProductNotification', productId)
       .then(({ notify }) => {
         this.setState({ notify })
+      })
+  }
+
+  handleBrowsedProduct({ id, name }) {
+    const users = this.props.db.collection('users')
+    users
+      .updateOne(
+        { user_id: this.props.stitchClient.authedId() },
+        {
+          $addToSet: {
+            browsed_products: { id, name, date_visited: new Date() }
+          }
+        }
+      )
+      .then(() => {
+        return users
+          .findOne(
+            { user_id: this.props.stitchClient.authedId() },
+            { _id: 0, browsed_products: 1 }
+          )
+          .then(({ browsed_products }) => {
+            this.setState({ browsed_products })
+          })
       })
   }
 
@@ -192,6 +217,7 @@ class App extends Component {
               {...this.props}
               handleAddToCart={this.handleAddToCart}
               handleProductNotification={this.handleProductNotification}
+              handleBrowsedProduct={this.handleBrowsedProduct}
               notify={this.state.notify}
             />
           </Switch>

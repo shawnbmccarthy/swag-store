@@ -23,6 +23,7 @@ class ProductPage extends Component {
           product,
           notifying: this.props.notify.includes(this.props.match.params.id)
         })
+        this.props.handleBrowsedProduct(product)
       })
       .catch(err => {
         console.log(err)
