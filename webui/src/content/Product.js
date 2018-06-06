@@ -85,8 +85,10 @@ class ProductPage extends Component {
                   <h5 className="card-title">Add to Cart</h5>
                   {isInStock ? (
                     [
-                      <p className="card-text text-success">In Stock</p>,
-                      <form className="form-inline">
+                      <p key="txtInStock" className="card-text text-success">
+                        In Stock
+                      </p>,
+                      <form key="formAddToCart" className="form-inline">
                         <label htmlFor="txtQuantity">Quantity: </label>
                         <input
                           id="txtQuantity"
