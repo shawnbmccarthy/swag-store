@@ -67,7 +67,7 @@ const CartItem = ({ product, handleUpdateCartItem }) => (
       <input
         type="number"
         value={product.quantity}
-        className="form-control col-4"
+        className="form-control col-5"
         onChange={e =>
           handleUpdateCartItem(product.id, parseInt(e.target.value, 10))
         }

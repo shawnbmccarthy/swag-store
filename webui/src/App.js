@@ -77,9 +77,9 @@ class App extends Component {
     }
   }
 
-  handleAddToCart(productId) {
+  handleAddToCart(productId, quantity = 1) {
     this.props.stitchClient
-      .executeFunction('addToCart', productId)
+      .executeFunction('addToCart', productId, quantity)
       .then(({ cart }) => {
         this.setState({ cart })
       })
@@ -180,6 +180,7 @@ class App extends Component {
               path="/products/:id"
               component={ProductPage}
               {...this.props}
+              handleAddToCart={this.handleAddToCart}
             />
           </Switch>
         </div>

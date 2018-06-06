@@ -8,7 +8,8 @@ class ProductPage extends Component {
     this.state = {
       product: {
         image: {}
-      }
+      },
+      quantity: 1
     }
   }
 
@@ -72,7 +73,30 @@ class ProductPage extends Component {
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">Add to Cart</h5>
-                  <p className="card-text">TODO</p>
+                  <form className="form-inline">
+                    <label htmlFor="txtQuantity">Quantity: </label>
+                    <input
+                      id="txtQuantity"
+                      type="number"
+                      className="form-control col-2"
+                      value={this.state.quantity}
+                      onChange={e => {
+                        this.setState({ quantity: e.target.value })
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="float-right btn btn-outline-primary btn-sm"
+                      onClick={() => {
+                        this.props.handleAddToCart(
+                          id,
+                          parseInt(this.state.quantity, 10)
+                        )
+                      }}
+                    >
+                      <i className={'fa fa-plus'} /> Add to cart
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
