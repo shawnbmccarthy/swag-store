@@ -57,7 +57,7 @@ export const NavItem = ({ link, title, icon, badge }) => (
     activeStyle={{ fontWeight: 'bold' }}
     to={link}
   >
-    {icon && <i className={icon} />}
+    {icon && <i className={icon} style={{ marginRight: '5px' }} />}
     {title}
     {badge > 0 && <span className="badge badge-notify">{badge}</span>}
   </NavLink>

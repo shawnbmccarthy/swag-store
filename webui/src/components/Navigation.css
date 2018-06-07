@@ -10,7 +10,7 @@
   font-weight: 100;
 }
 
-.container {
+.page {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -138,5 +138,5 @@ a:active {
   background: #13aa52;
   position: relative;
   top: -15px;
-  left: -7px;
+  left: -3px;
 }

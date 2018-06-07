@@ -40,7 +40,7 @@ class ProductsPage extends Component {
    */
   render() {
     return (
-      <div className="container productsPage">
+      <div className="container page">
         <div className="row">
           <h2>{this.props.match.params.category}</h2>
         </div>

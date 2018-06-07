@@ -10,7 +10,7 @@ export default class ProfilePage extends Component {
   render() {
     const userInfo = this.props.userInfo
     return (
-      <div className="profilePage">
+      <div className="container page">
         <div className="row">
           <h2>Profile Page</h2>
           <h3>{userInfo.authData.first_name}</h3>
