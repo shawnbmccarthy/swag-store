@@ -63,7 +63,8 @@ class App extends Component {
       },
       orders: [],
       notify: [],
-      browsed_products: []
+      browsed_products: [],
+      personalized_recs: []
     }
 
     this.handleAddToCart = this.handleAddToCart.bind(this)
@@ -181,7 +182,13 @@ class App extends Component {
         )}
         <div className="main">
           <Switch>
-            <ProtectedRoute exact path="/" component={Home} {...this.props} />
+            <ProtectedRoute
+              exact
+              path="/"
+              component={Home}
+              {...this.props}
+              personalized_recs={this.state.personalized_recs}
+            />
             <Route
               exact
               path="/login"
