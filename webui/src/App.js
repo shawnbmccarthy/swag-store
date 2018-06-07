@@ -4,8 +4,7 @@ import {
   NavBarBrand,
   NavBarNav,
   NavItem,
-  NavBarSide,
-  NavBarSideItem,
+  SideMenu,
   NavBarToggler
 } from './components/Navigation'
 import { Switch, Route } from 'react-router-dom'
@@ -173,13 +172,7 @@ class App extends Component {
             ]}
           </NavBarNav>
         </NavbarTop>
-        {isAuthenticated && (
-          <NavBarSide>
-            {menuItems.map(item => {
-              return <NavBarSideItem key={item.title} {...item} />
-            })}
-          </NavBarSide>
-        )}
+        {isAuthenticated && <SideMenu items={menuItems} />}
         <div className="main">
           <Switch>
             <ProtectedRoute
