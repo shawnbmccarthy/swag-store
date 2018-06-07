@@ -35,6 +35,14 @@ export class Login extends Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
+    let authOpts = {}
+
+    if (from.pathname === '/cart') {
+      authOpts.redirectUrl = `${window.location.protocol}//${
+        window.location.host
+      }${from.pathname}`
+    }
+    console.log(authOpts)
 
     if (redirectToReferrer) {
       return <Redirect to={from} />
@@ -50,7 +58,9 @@ export class Login extends Component {
             <div className="card-body">
               <p className="card-text">Please login to continue.</p>
               <div
-                onClick={() => this.props.stitchClient.authenticate('google')}
+                onClick={() =>
+                  this.props.stitchClient.authenticate('google', authOpts)
+                }
                 className="signin-button"
               >
                 <svg
