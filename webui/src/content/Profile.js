@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { USDFormatter, DateFormatter } from '../helpers'
 import '../components/Profile.css'
 
-
 const OrderItem = ({ product }) => (
   <div className="row">
     <div className="col-md-2 col-6">
@@ -31,12 +30,14 @@ export default class ProfilePage extends Component {
   render() {
     const userInfo = this.props.userInfo
     return (
-      <div className="container">
+      <div className="container page">
         <h2>Profile</h2>
 
         <div className="col-xs-12 col-sm-9">
           <h4 className="blue">
-            <span className="middle">{userInfo.firstname} {userInfo.lastname}</span>
+            <span className="middle">
+              {userInfo.firstname} {userInfo.lastname}
+            </span>
           </h4>
           <div className="profile-user-info">
             <div className="profile-info-row">
@@ -70,14 +71,16 @@ export default class ProfilePage extends Component {
               <div className="profile-info-name"> State, Zip </div>
 
               <div className="profile-info-value">
-                <span>{userInfo.state}  {userInfo.zip}</span>
+                <span>
+                  {userInfo.state} {userInfo.zip}
+                </span>
               </div>
             </div>
 
             <div className="profile-info-row">
               <div className="profile-info-name"> Joined </div>
               <div className="profile-info-value">
-                <span></span>
+                <span />
               </div>
             </div>
 
@@ -90,7 +93,7 @@ export default class ProfilePage extends Component {
             </div>
           </div>
 
-          <div className="hr hr-8 dotted"></div>
+          <div className="hr hr-8 dotted" />
         </div>
         <h2>Orders</h2>
         <div className="card">
@@ -108,9 +111,8 @@ export default class ProfilePage extends Component {
                   <div className="col-7 col-md-7 d-none d-sm-block">
                     <strong>Products</strong>
                   </div>
-
                 </div>
-                {userInfo.orders.map(((order, i) => {
+                {userInfo.orders.map((order, i) => {
                   return (
                     <div className="row">
                       <div className="col-1 col-md-1 d-none d-sm-block">
@@ -124,19 +126,16 @@ export default class ProfilePage extends Component {
                       </div>
                       <div className="col-7 col-md-7 d-none d-sm-block">
                         {order.products.map(product => (
-                          <OrderItem
-                            key={product.id}
-                            product={product}
-                          />
+                          <OrderItem key={product.id} product={product} />
                         ))}
                       </div>
                     </div>
                   )
-                }
-                ))}
+                })}
                 <div className="row">
                   <div className="order-total">
-                     <strong>Total:</strong> {USDFormatter.format(userInfo.orders.total)}
+                    <strong>Total:</strong>{' '}
+                    {USDFormatter.format(userInfo.orders.total)}
                   </div>
                 </div>
               </div>
@@ -144,10 +143,9 @@ export default class ProfilePage extends Component {
             {userInfo.orders.length === 0 && (
               <div className="alert alert-info">No orders</div>
             )}
-
           </div>
         </div>
-      </div >
+      </div>
     )
   }
 }
