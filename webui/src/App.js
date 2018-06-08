@@ -4,9 +4,9 @@ import {
   NavBarBrand,
   NavBarNav,
   NavItem,
-  SideMenu,
   NavBarToggler
 } from './components/Navigation'
+import { SideMenu } from './components/SideMenu'
 import { Switch, Route } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import { Home, Login } from './content/Pages'

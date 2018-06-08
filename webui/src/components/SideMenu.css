@@ -1,0 +1,34 @@
+.left {
+  position: fixed;
+  z-index: 99999;
+  float: left;
+  height: inherit;
+  background: #337ab7;
+  display: inline-block;
+  margin-left: -5px;
+  margin-right: 10px;
+  white-space: nowrap;
+  width: 65px;
+  transition: width 1s;
+}
+
+.left:hover {
+  width: 175px;
+}
+
+.item {
+  height: 50px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.item:hover {
+  background-color: #ccc;
+}
+
+.left .icon {
+  margin: 10px;
+  margin-right: 20px;
+  width: 20px;
+  color: #fff;
+}
