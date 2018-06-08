@@ -45,7 +45,7 @@ const Cart = ({ cart, handleUpdateCartItem, handleCheckout, history }) => {
                 className="btn btn-primary"
                 onClick={() => {
                   handleCheckout()
-                  history.push('/')
+                  history.push('/profile')
                 }}
               >
                 Check Out
