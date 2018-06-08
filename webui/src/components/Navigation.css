@@ -38,7 +38,7 @@ a:active {
   -webkit-user-select: none;
   user-select: none;
   color: #fff;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   letter-spacing: 1.25px;
 }
 
@@ -87,7 +87,6 @@ a:active {
   box-sizing: border-box;
   text-decoration: none;
   background-color: transparent;
-  text-underline: none;
   color: #e7e7e7;
 }
 

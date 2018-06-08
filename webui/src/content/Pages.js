@@ -42,7 +42,6 @@ export class Login extends Component {
         window.location.host
       }${from.pathname}`
     }
-    console.log(authOpts)
 
     if (redirectToReferrer) {
       return <Redirect to={from} />

@@ -146,22 +146,15 @@ class App extends Component {
         <NavbarTop>
           <NavBarBrand href="/" src="/images/logo.png" />
           <NavBarToggler />
-          <NavBarNav>
-            {isAuthenticated && [
-              <NavItem key="home" link="/" title="Home" />,
-              <button
-                key="btn-logout"
-                type="button"
-                className="btn btn-link link nav-link base nav-item"
-                onClick={() =>
-                  this.props.stitchClient
-                    .logout()
-                    .then(() => window.location.reload())
-                }
-              >
-                Hello, {this.state.authData.first_name} Logout
-              </button>,
-              <NavItem key="profile" link="/profile" title="profile" />,
+          {isAuthenticated && (
+            <NavBarNav>
+              <li key="user-welcome" className="nav-item">
+                <span className="navbar-text link">
+                  Hello, {this.state.authData.first_name}
+                </span>
+              </li>
+              <NavItem key="home" link="/" title="home" />
+              <NavItem key="profile" link="/profile" title="profile" />
               <NavItem
                 key="cart"
                 link="/cart"
@@ -169,8 +162,21 @@ class App extends Component {
                 icon="fa fa-shopping-cart"
                 badge={this.state.cart.totalQuantity}
               />
-            ]}
-          </NavBarNav>
+              <li key="logout" className="nav-item">
+                <button
+                  type="button"
+                  className="btn btn-link link nav-link base"
+                  onClick={() =>
+                    this.props.stitchClient
+                      .logout()
+                      .then(() => window.location.reload())
+                  }
+                >
+                  logout
+                </button>
+              </li>
+            </NavBarNav>
+          )}
         </NavbarTop>
         {isAuthenticated && <SideMenu items={menuItems} />}
         <div className="main">
