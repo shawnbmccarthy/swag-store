@@ -58,7 +58,7 @@ class ProductPage extends Component {
     } = this.state.product
     const isInStock = inventory > 0
     return (
-      <div className="container productPage">
+      <div className="container page">
         <div className="row">
           <div className="col col-md-10">
             <h3>{name}</h3>

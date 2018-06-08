@@ -57,7 +57,7 @@ export const NavItem = ({ link, title, icon, badge }) => (
     activeStyle={{ fontWeight: 'bold' }}
     to={link}
   >
-    {icon && <i className={icon} />}
+    {icon && <i className={icon} style={{ marginRight: '5px' }} />}
     {title}
     {badge > 0 && <span className="badge badge-notify">{badge}</span>}
   </NavLink>
@@ -109,36 +109,18 @@ export class NavBarToggler extends Component {
   }
 }
 
-export class NavBarSide extends Component {
-  state = {
-    collapseIn: false
-  }
+export const SideMenu = ({ items }) => (
+  <div className="left navbar-dark bg-dark">
+    {items.map(item => {
+      return <SideMenuItem key={item.title} {...item} />
+    })}
+  </div>
+)
 
-  renderChildren = () => {
-    const { children } = this.props
-    return React.Children.map(children, child => {
-      return React.cloneElement(child, {
-        navbarToggle: this.navbarToggle,
-        collapseIn: this.state.collapseIn
-      })
-    })
-  }
-
-  navbarToggle = () => {
-    this.setState({ collapseIn: !this.state.collapseIn })
-  }
-
-  render() {
-    return (
-      <div className="left navbar-dark bg-dark">{this.renderChildren()}</div>
-    )
-  }
-}
-
-export const NavBarSideItem = ({ link, title, icon }) => (
+export const SideMenuItem = ({ link, title, icon }) => (
   <NavLink
     className="item nav-link nav-item"
-    activeStyle={{ fontWeight: 'bold' }}
+    activeStyle={{ fontWeight: 'bold', color: '#0056b3' }}
     to={link}
   >
     <i className={`icon ${icon}`} />

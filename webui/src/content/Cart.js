@@ -5,7 +5,7 @@ import { USDFormatter } from '../helpers'
 const Cart = ({ cart, handleUpdateCartItem, handleCheckout, history }) => {
   const products = cart.products
   return (
-    <div className="container">
+    <div className="container page">
       <h2>Cart</h2>
       <div className="card">
         <div className="card-body">

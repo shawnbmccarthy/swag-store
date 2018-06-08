@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { ProductDeck } from '../components/Products'
 
 export const Home = ({ personalized_recs }) => (
-  <div className="container Home">
+  <div className="container page">
     <div className="row">
       <div className="img">
         <img className="img-fluid" src="/images/swag.jpg" alt="" />
