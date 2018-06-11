@@ -5,41 +5,42 @@ import '../components/Profile.css'
 
 const OrderItem = ({ product }) => (
   <div className="row">
-    <div className="col-md-6 col-6">
-      
-    </div>
+    <div className="col-md-6 col-6" />
     <div className="col-md-2 col-2">
       <strong>Qty</strong>
     </div>
     <div className="col-md-2 col-2">
-    <strong>Price</strong>
+      <strong>Price</strong>
     </div>
     <div className="col-md-2 col-2">
-    <strong>Total</strong>
+      <strong>Total</strong>
     </div>
     <div className="col-md-6 col-6">
-      <img src={product.image.thumb} alt={product.name} /><br />
+      <img src={product.image.thumb} alt={product.name} />
+      <br />
 
-      <Link to={`/products/${product.id}`}><small>{product.name}</small></Link>
+      <Link to={`/products/${product.id}`}>
+        <small>{product.name}</small>
+      </Link>
     </div>
-    <div className="col-md-2 col-2">
-      {product.quantity}
-    </div>
+    <div className="col-md-2 col-2">{product.quantity}</div>
     <div className="col-md-2 col-2">{USDFormatter.format(product.price)} </div>
-    <div className="col-md-2 col-2">{USDFormatter.format(product.price*product.quantity)} </div>
+    <div className="col-md-2 col-2">
+      {USDFormatter.format(product.price * product.quantity)}{' '}
+    </div>
   </div>
 )
 
 const OrderTotal = ({ products }) => (
   <div className="col-12 col-md-12 order-total">
-    <div className="text-right"><strong>Order Total:</strong>&nbsp;
-      {USDFormatter.format(products.reduce((sum, i) => (
-        sum += i.quantity * i.price
-      ), 0))}
+    <div className="text-right">
+      <strong>Order Total:</strong>&nbsp;
+      {USDFormatter.format(
+        products.reduce((sum, i) => (sum += i.quantity * i.price), 0)
+      )}
     </div>
     <hr />
   </div>
-
 )
 
 export default class ProfilePage extends Component {
@@ -47,14 +48,14 @@ export default class ProfilePage extends Component {
     super(props)
     this.state = {}
   }
-  ordersTotal(orders) {
-
-  }
+  ordersTotal(orders) {}
   render() {
     const userInfo = this.props.userInfo
     return (
-      <div className="container">
-        <br/><h2>Profile</h2><br/>
+      <div className="container page">
+        <br />
+        <h2>Profile</h2>
+        <br />
         <div className="col-xs-12 col-sm-9">
           <h4 className="blue">
             <span className="middle">
@@ -117,7 +118,9 @@ export default class ProfilePage extends Component {
 
           <div className="hr hr-8 dotted" />
         </div>
-        <br/><h2>My Orders</h2><br/>
+        <br />
+        <h2>My Orders</h2>
+        <br />
         <div className="card">
           <div className="card-body">
             {userInfo.orders.length > 0 && (
@@ -137,7 +140,7 @@ export default class ProfilePage extends Component {
                   return (
                     <div className="row" key={order.id.toString()}>
                       <div className="col-2 col-md-2 d-none d-sm-block">
-                      {i + 1}&nbsp;{DateFormatter.format(order.date_created)}
+                        {i + 1}&nbsp;{DateFormatter.format(order.date_created)}
                       </div>
                       <div className="col-2 col-md-2 d-none d-sm-block">
                         {order.status}
@@ -147,19 +150,16 @@ export default class ProfilePage extends Component {
                           <OrderItem key={product.id} product={product} />
                         ))}
                       </div>
-                      
+
                       <div className="row col-md-12">
-                          <OrderTotal 
-                            products={order.products} 
-                            key={order.id.toString()}
-                          />
+                        <OrderTotal
+                          products={order.products}
+                          key={order.id.toString()}
+                        />
                       </div>
                     </div>
                   )
-                }
-                
-                )
-              }
+                })}
               </div>
             )}
             {userInfo.orders.length === 0 && (
