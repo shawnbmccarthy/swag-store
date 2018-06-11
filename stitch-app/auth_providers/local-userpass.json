@@ -1,0 +1,12 @@
+{
+    "id": "5afdfed2b8b998e0a3aa1afa",
+    "name": "local-userpass",
+    "type": "local-userpass",
+    "config": {
+        "emailConfirmationSubject": "jane.fine@mongodb.com",
+        "emailConfirmationUrl": "http://",
+        "resetPasswordSubject": "test",
+        "resetPasswordUrl": "http://"
+    },
+    "disabled": true
+}

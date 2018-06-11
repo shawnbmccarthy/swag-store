@@ -1,0 +1,8 @@
+{
+    "id": "5aff5afe8f25b9b7e8d79e34",
+    "name": "DialogFlowHTTPRule",
+    "actions": [
+        "post",
+        "get"
+    ]
+}

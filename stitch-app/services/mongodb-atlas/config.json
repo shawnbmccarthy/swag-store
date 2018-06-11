@@ -1,0 +1,9 @@
+{
+    "id": "5afdf73c4fdd1f7650cddb79",
+    "name": "mongodb-atlas",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "ECommerceAppDB"
+    },
+    "version": 1
+}

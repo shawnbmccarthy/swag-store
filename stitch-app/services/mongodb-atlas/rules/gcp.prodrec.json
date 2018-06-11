@@ -1,0 +1,33 @@
+{
+    "id": "5b183ad4b8b99857310a34b9",
+    "namespace": "gcp.prodrec",
+    "filters": [
+        {
+            "match_expression": {
+                "owner_id": "%%user.id"
+            },
+            "when": {
+                "%%true": true
+            }
+        }
+    ],
+    "fields": {
+        "owner_id": {
+            "valid": {
+                "%or": [
+                    {
+                        "%%prev": "%%user.id"
+                    },
+                    {
+                        "%%prev": {
+                            "%exists": false
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "other_fields": {},
+    "write": {},
+    "read": {}
+}

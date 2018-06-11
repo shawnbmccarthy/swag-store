@@ -1,0 +1,26 @@
+{
+    "id": "5b1045288f25b92336ab18c6",
+    "namespace": "swagstore.users",
+    "filters": [
+        {
+            "match_expression": {},
+            "when": {
+                "%%true": true
+            }
+        }
+    ],
+    "other_fields": {},
+    "write": {
+        "%or": [
+            {
+                "%%root.user_id": "%%user.id"
+            },
+            {
+                "%%root.admin": {
+                    "boolean": true
+                }
+            }
+        ]
+    },
+    "read": {}
+}

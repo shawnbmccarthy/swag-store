@@ -1,0 +1,12 @@
+{
+    "id": "5afdfafeb8b998e0a3a65b77",
+    "name": "intent",
+    "run_as_user_id": "",
+    "run_as_user_id_script_source": "",
+    "options": {
+        "httpMethod": "POST",
+        "secret": "secret",
+        "secretAsQueryParam": true
+    },
+    "respond_result": true
+}
