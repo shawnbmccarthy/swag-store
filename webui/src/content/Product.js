@@ -21,7 +21,11 @@ class ProductPage extends Component {
       .then(product => {
         this.setState({
           product,
-          notifying: this.props.notify.includes(this.props.match.params.id)
+          notifying: Boolean(
+            this.props.notify.find(element => {
+              return element.id === this.props.match.params.id
+            })
+          )
         })
         this.props.handleBrowsedProduct(product)
       })
@@ -40,7 +44,11 @@ class ProductPage extends Component {
     }
     if (this.props.notify !== prevProps.notify) {
       this.setState({
-        notifying: this.props.notify.includes(this.props.match.params.id)
+        notifying: Boolean(
+          this.props.notify.find(element => {
+            return element.id === this.props.match.params.id
+          })
+        )
       })
     }
   }
