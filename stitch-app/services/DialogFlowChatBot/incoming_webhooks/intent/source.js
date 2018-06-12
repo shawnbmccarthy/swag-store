@@ -57,13 +57,13 @@ exports = function(payload, response) {
         product_data.fulfillmentMessages = [
           {
             "card": {
-              "title": "card title",
-              "subtitle": "card text",
-              "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+              "title": productFound.name,
+              "subtitle": "I found you a " + productFound.color + " " + productFound.name,
+              "imageUri": "https://mdb-swag-store.netlify.com/" + productFound.image.large,
               "buttons": [
                 {
-                  "text": "button text",
-                  "postback": "https://assistant.google.com/"
+                  "text": "Buy Now",
+                  "postback": "https://mdb-swag-store.netlify.com/products/" + productFound.id
                 }
               ]
             }
