@@ -1,30 +1,41 @@
-exports = function(){
-  const mongodb = context.services.get("mongodb-atlas");
-  const users = mongodb.db("swagstore").collection("users");
-  const products = mongodb.db("swagstore").collection("products");
+exports = function(event){
+  const db = context.services.get("mongodb-atlas").db("swagstore");
+  const users = db.collection("users");
+  const events = db.collection("events");
   const twilio = context.services.get("twilio");
-  console.log("Twilio Number: " + context.values.get("twilioNumber"));
-  // Test sending SMS via the twilio service
-  // twilio.send({
-  //   to: "+12158666036",
-  //   from: '+12018066646',
-  //   body: "Hi Mike - We're letting you know that your product is back in stock!"
-  // });
-  products
-    .find({"notify":{"$exists":true, "$ne":[]}})
+  
+  const product = event.fullDocument;
+  var eventDoc = event;
+  delete eventDoc._id;
+  eventDoc.date_created = new Date();
+
+  events.insertOne({event: eventDoc});
+  console.log("Eventdoc: " + JSON.stringify(eventDoc));
+  return users.find({"notify.id": product.id})
     .toArray()
-    .then(docs => {
-      docs.forEach(document => {
-        for (var i in document.notify) {
-          console.log(document.notify[i].name + '|' + document.notify[i].number);
-          twilio.send({
-            to: document.notify[i].number,
+    .then(notifyUsers => {
+      notifyUsers.forEach(user => {
+        // Add item to cart
+        context.functions.execute("addToCart", product.id, 1, user.user_id)
+        .then(() => {
+          // Send Text
+          return twilio.send({
+            to: user.phone,
             from: context.values.get("twilioNumber"),
-            body: "Hi " + document.notify[i].name + " - We're letting you know that " + document.name + " is back in stock!"
+            body: `Hi ${user.firstname}!  We wanted to let you know that ${product.name} is back in stock.  We have added it to your cart at https://https://mdb-swag-store.netlify.com/cart` 
           });
-          console.log( "Hi " + document.notify[i].name + " - We're letting you know that " + document.name + " is back in stock!");
-        }
+        })
+        .then(() => {
+          // Update notify Array
+          let newNotif = user.notify;
+          let index = newNotif.indexOf(product.id);
+          if(index < 1){
+            return users.updateOne({"_id":user._id},{"$set": {"notify": []}});
+          } else {
+            return users.updateOne({"_id":user._id},{"$set": {"notify": newnotif.splice(index,1)}});
+          }
+        });
       });
+      return true;
     });
-    return true;
 };

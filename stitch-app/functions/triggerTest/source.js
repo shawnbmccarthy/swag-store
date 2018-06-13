@@ -1,12 +1,13 @@
-exports = function(){
-  const mongodb = context.services.get("mongodb-atlas");
-  const test = mongodb.db("swagstore").collection("test");
+exports = function(event){
   const twilio = context.services.get("twilio");
+  const db = context.services.get("mongodb-atlas").db("swagstore");
+  const events = db.collection("events");
+  const users = db.collection("users");
   //Test sending SMS via the twilio service
-  twilio.send({
-    to: "+12158666036",
-    from: '+12018066646',
-    body: "Hi Mike - We're letting you know that your triggers test succeeded!"
-  });
+  // twilio.send({
+  //   to: "+12158666036",
+  //   from: '+12018066646',
+  //   body: "Event " + event.operationType
+  // });
   return true;
 };

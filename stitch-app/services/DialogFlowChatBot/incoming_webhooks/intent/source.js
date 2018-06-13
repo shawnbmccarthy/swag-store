@@ -69,25 +69,41 @@ exports = function(payload, response) {
             }
           }
         ];
-        response.setBody(JSON.stringify(product_data)); 
+        response.setBody(JSON.stringify(product_data));
       } else if (typeof productFound.type != "undefined") {
         log_data.color_exists = false;
         product_data.fulfillmentText = "I found you a " 
                                       + productFound.name 
                                       + ". Check it out here: https://mdb-swag-store.netlify.com/products/" + productFound.id ;
+        product_data.fulfillmentMessages = [
+          {
+            "card": {
+              "title": productFound.name,
+              "subtitle": "I found you a " + productFound.name,
+              "imageUri": "https://mdb-swag-store.netlify.com/" + productFound.image.large,
+              "buttons": [
+                {
+                  "text": "Buy Now",
+                  "postback": "https://mdb-swag-store.netlify.com/products/" + productFound.id
+                }
+              ]
+            }
+          }
+        ];
         response.setBody(JSON.stringify(product_data));
       } else {
         product_data.fulfillmentText = "Sorry, I couldn't find a match. Please try again.";
-        log_data.reponse = JSON.stringify(product_data);
         response.setBody(JSON.stringify(product_data));
+        log_data.reponse = JSON.stringify(product_data);
       }
   }).catch(function(error, productFound) {
     log_data.nomatch = false;
     log_data.error = JSON.stringify(error);
     log_data.body.queryResult = body.queryResult;
     log_data.productFound = JSON.stringify(productFound);
+    product_data.fulfillmentText = "Sorry, I couldn't find a match. Please try again.";
+    response.setBody(JSON.stringify(product_data));
   });
-  
   logs.insertOne(log_data);
   
   // End function here - ignore notes/comments below

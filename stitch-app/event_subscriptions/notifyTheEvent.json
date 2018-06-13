@@ -1,0 +1,19 @@
+{
+    "id": "5b1fe142b8b998b4f40c6805",
+    "name": "notifyTheEvent",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "UPDATE",
+            "REPLACE",
+            "INSERT"
+        ],
+        "database": "swagstore",
+        "collection": "products",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "full_document": true
+    },
+    "function_name": "triggerTest",
+    "disabled": false
+}
