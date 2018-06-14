@@ -51,6 +51,9 @@ export default class ProfilePage extends Component {
   ordersTotal(orders) {}
   render() {
     const userInfo = this.props.userInfo
+    userInfo.orders = userInfo.orders.sort((a, b) => {
+      return b.date_created - a.date_created
+    })
     return (
       <div className="container page">
         <br />
