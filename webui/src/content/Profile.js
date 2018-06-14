@@ -99,7 +99,7 @@ export default class ProfilePage extends Component {
                 </span>
               </div>
             </div>
-
+            {/*
             <div className="profile-info-row">
               <div className="profile-info-name"> Joined </div>
               <div className="profile-info-value">
@@ -114,8 +114,8 @@ export default class ProfilePage extends Component {
                 <span>3 hours ago</span>
               </div>
             </div>
+*/}
           </div>
-
           <div className="hr hr-8 dotted" />
         </div>
         <br />
