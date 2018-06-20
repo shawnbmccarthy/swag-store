@@ -1,32 +1,6 @@
 {
     "id": "5b204aac058429d43fd6892a",
     "namespace": "swagstore.events",
-    "filters": [
-        {
-            "match_expression": {
-                "owner_id": "%%user.id"
-            },
-            "when": {
-                "%%true": true
-            }
-        }
-    ],
-    "fields": {
-        "owner_id": {
-            "valid": {
-                "%or": [
-                    {
-                        "%%prev": "%%user.id"
-                    },
-                    {
-                        "%%prev": {
-                            "%exists": false
-                        }
-                    }
-                ]
-            }
-        }
-    },
     "other_fields": {},
     "write": {},
     "read": {}

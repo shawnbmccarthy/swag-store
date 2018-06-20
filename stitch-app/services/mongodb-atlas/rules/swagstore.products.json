@@ -1,6 +1,22 @@
 {
     "id": "5b0ea2a2cfb7375886b5fc02",
     "namespace": "swagstore.products",
+    "fields": {
+        "owner_id": {
+            "valid": {
+                "%or": [
+                    {
+                        "%%prev": "%%user.id"
+                    },
+                    {
+                        "%%prev": {
+                            "%exists": false
+                        }
+                    }
+                ]
+            }
+        }
+    },
     "other_fields": {},
     "write": {},
     "read": {}

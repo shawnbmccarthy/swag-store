@@ -5,37 +5,39 @@ exports = function(event){
   const twilio = context.services.get("twilio");
   
   const product = event.fullDocument;
-  var eventDoc = event;
+  const eventDoc = event;
   delete eventDoc._id;
+  
   eventDoc.date_created = new Date();
-
   events.insertOne({event: eventDoc});
-  console.log("Eventdoc: " + JSON.stringify(eventDoc));
-  return users.find({"notify.id": product.id})
-    .toArray()
-    .then(notifyUsers => {
-      notifyUsers.forEach(user => {
-        // Add item to cart
-        context.functions.execute("addToCart", product.id, 1, user.user_id)
-        .then(() => {
-          // Send Text
-          return twilio.send({
-            to: user.phone,
-            from: context.values.get("twilioNumber"),
-            body: `Hi ${user.firstname}!  We wanted to let you know that ${product.name} is back in stock.  We have added it to your cart at https://https://mdb-swag-store.netlify.com/cart` 
-          });
-        })
-        .then(() => {
-          // Update notify Array
-          let newNotif = user.notify;
-          let index = newNotif.indexOf(product.id);
-          if(index < 1){
-            return users.updateOne({"_id":user._id},{"$set": {"notify": []}});
-          } else {
-            return users.updateOne({"_id":user._id},{"$set": {"notify": newnotif.splice(index,1)}});
-          }
-        });
+
+  let inStockNotif = function(user, product){
+    // Add item to cart, then send text, then change the notification array
+    return context.functions.execute("addToCart", product.id, 1, user.user_id)
+    .then(() => {
+      return twilio.send({
+        to: user.phone,
+        from: context.values.get("twilioNumber"),
+        body: `Hi ${user.firstname}!  We wanted to let you know that ${product.name} is back in stock.  We have added it to your cart at https://mdb-swag-store.netlify.com/cart` 
       });
-      return true;
+    })
+    .then(() => {
+      let newNotif = JSON.parse(JSON.stringify(user.notify));
+      let index = user.notify.indexOf(product.id);
+      if(index < 1 && user.notify.length == 1){
+        return users.updateOne({"_id":user._id},{"$set": {"notify": []}});
+      } else {
+        return users.updateOne({"_id":user._id},{"$set": {"notify": newNotif.splice(index,1)}});
+      }
     });
+  };
+  
+  try{
+    return users.find({"notify": product.id}).toArray().then(notifyUsers => {
+      return Promise.all(notifyUsers.map(function(user) {return inStockNotif(user, product)}));
+    });
+  } 
+  catch(error){
+    console.log(eror);
+  }
 };

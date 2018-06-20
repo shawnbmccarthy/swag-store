@@ -5,15 +5,20 @@
     "config": {
         "operation_types": [
             "UPDATE",
-            "REPLACE",
-            "INSERT"
+            "REPLACE"
         ],
         "database": "swagstore",
         "collection": "products",
         "service_name": "mongodb-atlas",
-        "match": {},
+        "match": {
+            "fullDocument.inventory": {
+                "$gt": {
+                    "$numberInt": "0"
+                }
+            }
+        },
         "full_document": true
     },
-    "function_name": "triggerTest",
+    "function_name": "notifyUsers",
     "disabled": false
 }

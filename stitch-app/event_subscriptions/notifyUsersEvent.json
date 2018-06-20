@@ -4,13 +4,18 @@
     "type": "DATABASE",
     "config": {
         "operation_types": [
-            "UPDATE",
             "REPLACE"
         ],
         "database": "swagstore",
         "collection": "products",
         "service_name": "mongodb-atlas",
-        "match": {},
+        "match": {
+            "fullDocument.inventory": {
+                "$gt": {
+                    "$numberInt": "0"
+                }
+            }
+        },
         "full_document": true
     },
     "function_name": "notifyUsers",

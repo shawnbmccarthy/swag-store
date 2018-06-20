@@ -9,6 +9,7 @@ exports = function(productId, quantity=1, user_id=""){
   const products = db.collection("products");
   const users = db.collection("users");
   // is product in cart?
+  
   return users.findOne({ user_id, "cart.products.id": productId })
     .then(user => {
       if(user) {
@@ -43,7 +44,7 @@ exports = function(productId, quantity=1, user_id=""){
       }
     })
     .then(result => {
-      return context.functions.execute("updateCartTotals");
+      return context.functions.execute("updateCartTotals", user_id);
     })
     .then(result => {
       return users.findOne({user_id}, {_id: 0, cart: 1});
