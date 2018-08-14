@@ -2,6 +2,9 @@
 
 An eCommerce application created using MongoDB Stitch and React.js
 
+**Note**
+_This application uses v3 of the Stitch JavaScript SDK._
+
 ## webui
 
 React.js application created using [Create React App](https://github.com/facebook/create-react-app). Application is automatically built and deployed to [Netlify](https://www.netlify.com/) on merge to master. Application can be viewed at https://mdb-swag-store.netlify.com.
