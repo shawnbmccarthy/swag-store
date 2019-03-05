@@ -2,6 +2,8 @@
 
 An eCommerce application created using MongoDB Stitch and React.js
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bc0207a6-709d-4e14-905f-b35fc73ff528/deploy-status)](https://app.netlify.com/sites/mdb-swag-store/deploys)
+
 **Note**
 _This application uses v3 of the Stitch JavaScript SDK._
 
@@ -25,17 +27,10 @@ export STITCH_API_KEY=<API_KEY>
 export STITCH_USERNAME=<CLOUD_USERNAME>
 ```
 
-- Make scripts executable
+#### deploy.sh
 
-```
-> chmod +x deploy
-> chmod +x export
-```
+Deploy current code using `./deploy.sh` in the root of the project
 
-#### deploy
+#### export.sh
 
-Deploy current code using `./deploy` in the root of the project
-
-#### export
-
-Export the project code using `./export` in the root of the project.
+Export the project code using `./export.sh` in the root of the project.
