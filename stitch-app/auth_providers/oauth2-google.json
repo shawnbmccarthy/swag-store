@@ -3,7 +3,7 @@
     "name": "oauth2-google",
     "type": "oauth2-google",
     "config": {
-        "clientId": "943838529374-2hu7u6fod392b4058h8nuool4dsn9ts0.apps.googleusercontent.com"
+        "clientId": ""
     },
     "disabled": false,
     "metadata_fields": [
