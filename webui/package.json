@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "lodash": "^4.17.15",
     "mongodb-stitch-browser-sdk": "^4.5.0",
+    "mpath": "^0.6.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
