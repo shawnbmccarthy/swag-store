@@ -74,8 +74,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (this.props.stitchClient.isAuthenticated()) {
-      this.props.stitchClient.executeFunction('getUserInfo').then(userInfo => {
+    if (this.props.stitchClient.auth.isLoggedIn) {
+      this.props.stitchClient.callFunction('getUserInfo').then(userInfo => {
         this.setState(userInfo)
       })
     }
@@ -140,7 +140,7 @@ class App extends Component {
   }
 
   render(props) {
-    const isAuthenticated = this.props.stitchClient.isAuthenticated()
+    const isAuthenticated = this.props.stitchClient.auth.isLoggedIn
     return (
       <div>
         <NavbarTop>
@@ -167,8 +167,7 @@ class App extends Component {
                   type="button"
                   className="btn btn-link link nav-link base"
                   onClick={() =>
-                    this.props.stitchClient
-                      .logout()
+                    this.props.stitchClient.auth.logout()
                       .then(() => window.location.reload())
                   }
                 >

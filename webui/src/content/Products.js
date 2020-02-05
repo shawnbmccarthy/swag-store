@@ -14,7 +14,7 @@ class ProductsPage extends Component {
     this.props.db
       .collection('products')
       .find({ category: this.props.match.params.category })
-      .execute()
+      .toArray()
       .then(products => {
         this.setState({ products })
       })

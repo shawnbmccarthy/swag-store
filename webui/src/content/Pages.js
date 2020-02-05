@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { ProductDeck } from '../components/Products'
+import { GoogleRedirectCredential } from 'mongodb-stitch-browser-sdk'
 
 export const Home = ({ personalized_recs }) => (
   <div className="container page">
@@ -26,8 +27,12 @@ export class Login extends Component {
     this.state = { redirectToReferrer: false }
   }
 
-  componentDidMount() {
-    if (this.props.stitchClient.isAuthenticated()) {
+  async componentDidMount() {
+    if(this.props.stitchClient.auth.hasRedirectResult()){
+      await this.props.stitchClient.auth.handleRedirectResult().catch(console.error)
+      console.log('processed redirect result')
+    }
+    if (this.props.stitchClient.auth.isLoggedIn) {
       this.setState({ redirectToReferrer: true })
     }
   }
@@ -57,9 +62,10 @@ export class Login extends Component {
             <div className="card-body">
               <p className="card-text">Please login to continue.</p>
               <div
-                onClick={() =>
-                  this.props.stitchClient.authenticate('google', authOpts)
-                }
+                onClick={() => {
+                  const credential = new GoogleRedirectCredential()
+                  this.props.stitchClient.auth.loginWithRedirect(credential)
+                }}
                 className="signin-button"
               >
                 <svg
