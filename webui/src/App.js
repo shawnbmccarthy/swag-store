@@ -82,24 +82,21 @@ class App extends Component {
   }
 
   handleAddToCart(productId, quantity = 1) {
-    this.props.stitchClient
-      .executeFunction('addToCart', productId, quantity)
+    this.props.stitchClient.callFunction('addToCart', [productId, quantity])
       .then(({ cart }) => {
         this.setState({ cart })
       })
   }
 
   handleUpdateCartItem(productId, quantity = 0) {
-    this.props.stitchClient
-      .executeFunction('updateCartItem', productId, quantity)
+    this.props.stitchClient.callFunction('updateCartItem', [productId, quantity])
       .then(({ cart }) => {
         this.setState({ cart })
       })
   }
 
   handleCheckout() {
-    this.props.stitchClient
-      .executeFunction('checkout')
+    this.props.stitchClient.callFunction('checkout')
       .then(({ cart, orders }) => {
         this.setState({ cart, orders })
       })
@@ -109,8 +106,7 @@ class App extends Component {
   }
 
   handleProductNotification(productId) {
-    this.props.stitchClient
-      .executeFunction('registerProductNotification', productId)
+    this.props.stitchClient.callFunction('registerProductNotification', [productId])
       .then(({ notify }) => {
         this.setState({ notify })
       })

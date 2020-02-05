@@ -1,7 +1,0 @@
-[Settings]
-ID = "mdb-swag-store"
-
-[build]
-base = "webui/"
-publish = "webui/build/"
-command = "npm run build"
