@@ -30,6 +30,7 @@ class ProductPage extends Component {
         this.props.handleBrowsedProduct(product)
       })
       .catch(err => {
+        // should show alert in browser while sending the error to a service
         console.log(err)
       })
   }
@@ -53,6 +54,9 @@ class ProductPage extends Component {
     }
   }
 
+  // this is a big render, which can get updated on notify (can this cause perf issues?)
+  // possibly make smaller render with notify being pushed down to stock (or lifting context and creating component
+  // which use the context as need for redrawing)
   render() {
     const {
       _id,

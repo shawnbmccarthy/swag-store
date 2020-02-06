@@ -19,6 +19,7 @@ class ProductsPage extends Component {
         this.setState({ products })
       })
       .catch(err => {
+        // alert and error service needed
         console.log(err)
       })
   }
@@ -33,11 +34,6 @@ class ProductsPage extends Component {
     }
   }
 
-  /*
-   * TODO: Dynamically generate SingleProduct component for each product in products;
-   *       - Max 3 products per row
-   *       - All rows should be pushed by expanding menu
-   */
   render() {
     return (
       <div className="container page">

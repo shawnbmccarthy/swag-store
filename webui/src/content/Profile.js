@@ -43,6 +43,9 @@ const OrderTotal = ({ products }) => (
   </div>
 )
 
+/*
+ * what was the plan with state here? does not appear to be needed right now
+ */
 export default class ProfilePage extends Component {
   constructor(props) {
     super(props)

@@ -1,3 +1,13 @@
+/*
+ * App.js
+ * lift up state and move out of app.js
+ * currently everything is pushed down as props and will get more complicated as
+ * more features are added.
+ *
+ * menuItems should be moved to the database and loaded dynamically
+ *
+ * 
+ */
 import React, { Component } from 'react'
 import {
   NavbarTop,
@@ -116,7 +126,7 @@ class App extends Component {
     const users = this.props.db.collection('users')
     users
       .updateOne(
-        { user_id: this.props.stitchClient.authedId() },
+        { user_id: this.props.stitchClient.auth.user.id },
         {
           $addToSet: {
             browsed_products: { id, name, date_visited: new Date() }
@@ -126,7 +136,7 @@ class App extends Component {
       .then(() => {
         return users
           .findOne(
-            { user_id: this.props.stitchClient.authedId() },
+            { user_id: this.props.stitchClient.auth.user.id },
             { _id: 0, browsed_products: 1 }
           )
           .then(({ browsed_products }) => {

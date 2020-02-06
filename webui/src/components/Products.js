@@ -73,15 +73,6 @@ const ProductCard = ({ product, handleAddToCart }) => {
             <small className={'text-muted'}>
               {USDFormatter.format(product.price)}
             </small>
-            {/*<button
-            type="button"
-            className="float-right btn btn-outline-primary btn-sm"
-            onClick={() => {
-              handleAddToCart(product.id)
-            }}
-          >
-            <i className={'fa fa-plus'} /> Add to cart
-          </button>*/}
           </p>
         </div>
       )}
